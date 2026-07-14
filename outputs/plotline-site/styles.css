@@ -545,4 +545,38 @@ footer span:first-child {
   }
 }
 
-@media (max-width: 560px) 
+@media (max-width: 560px) {
+  .site-header {
+    padding: 14px 16px;
+  }
+
+  .hero-content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+  .section,
+  .sample-section,
+  .inquiry {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .itinerary-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .itinerary-days li {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

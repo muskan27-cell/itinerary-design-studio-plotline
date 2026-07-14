@@ -66,4 +66,50 @@ function render() {
     .map(([heading, copy]) => {
       return `<li><div><strong>${heading}</strong><p>${copy} The day is ${paceCopy[pace.value]}.</p></div></li>`;
     })
-    .
+    .join("");
+}
+
+[persona, pace, concierge].forEach((control) => control.addEventListener("input", render));
+
+render();
+
+if (briefForm) {
+  briefForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const submitButton = briefForm.querySelector("button[type='submit']");
+    const formData = new FormData(briefForm);
+    const payload = {
+      mood: formData.get("mood"),
+      travel_window: formData.get("travel_window"),
+      tier: formData.get("tier"),
+      traveler_email: formData.get("traveler_email")
+    };
+
+    formStatus.textContent = "Creating your brief...";
+    formStatus.dataset.state = "loading";
+    submitButton.disabled = true;
+
+    try {
+      const response = await fetch("/api/briefs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Could not create brief");
+      }
+
+      formStatus.textContent = `Brief ${result.brief.id} created. Estimated planning fee: ${money(result.brief.estimated_fee)}.`;
+      formStatus.dataset.state = "success";
+      briefForm.reset();
+    } catch (error) {
+      formStatus.textContent = error.message;
+      formStatus.dataset.state = "error";
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+}
