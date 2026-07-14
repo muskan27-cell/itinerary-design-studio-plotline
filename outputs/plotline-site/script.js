@@ -37,6 +37,13 @@ const days = document.querySelector("#itinerary-days");
 const supportChip = document.querySelector("#support-chip");
 const briefForm = document.querySelector("#brief-form");
 const formStatus = document.querySelector("#form-status");
+const generatedPlan = document.querySelector("#generated-plan");
+const loadDashboard = document.querySelector("#load-dashboard");
+const metricGrid = document.querySelector("#metric-grid");
+const briefList = document.querySelector("#brief-list");
+const itineraryList = document.querySelector("#itinerary-list");
+const conciergeList = document.querySelector("#concierge-list");
+const conciergeForm = document.querySelector("#concierge-form");
 
 function money(value) {
   return new Intl.NumberFormat("en-US", {
@@ -66,6 +73,76 @@ function render() {
     .map(([heading, copy]) => {
       return `<li><div><strong>${heading}</strong><p>${copy} The day is ${paceCopy[pace.value]}.</p></div></li>`;
     })
+    .join("");
+}
+
+function dayCard(day) {
+  return `<li><strong>Day ${day.day}: ${day.title}</strong><p>${day.afternoon || day.notes}</p></li>`;
+}
+
+function renderGeneratedPlan(result) {
+  if (!generatedPlan || !result.itinerary) return;
+  const itinerary = result.itinerary;
+  const payment = result.payment;
+  generatedPlan.hidden = false;
+  generatedPlan.innerHTML = `
+    <p class="eyebrow">Generated first draft</p>
+    <h3>${itinerary.title}</h3>
+    <p>${itinerary.character} · ${itinerary.destination}</p>
+    <ol>${itinerary.days.map(dayCard).join("")}</ol>
+    <div class="plan-actions">
+      <a class="button primary" href="/api/itineraries/${itinerary.id}/export" target="_blank" rel="noreferrer">Open PDF-style export</a>
+      <a class="button secondary dark" href="${payment.checkout_url}">Mock checkout ${money(payment.amount)}</a>
+    </div>
+  `;
+}
+
+async function fetchJson(url, options = {}) {
+  const response = await fetch(url, options);
+  const payload = await response.json();
+  if (!response.ok) {
+    throw new Error(payload.error || "Request failed");
+  }
+  return payload;
+}
+
+function record(html) {
+  return `<article class="record">${html}</article>`;
+}
+
+function renderDashboard(data) {
+  metricGrid.innerHTML = Object.entries(data.metrics)
+    .map(([label, value]) => `<article><span>${value}</span><p>${label.replaceAll("_", " ")}</p></article>`)
+    .join("");
+
+  briefList.innerHTML = data.briefs
+    .map((brief) =>
+      record(`
+        <strong>${brief.mood}</strong>
+        <p>${brief.travel_window} · ${brief.tier} · ${brief.status}</p>
+        <code>${brief.id}</code>
+      `)
+    )
+    .join("");
+
+  itineraryList.innerHTML = data.itineraries
+    .map((itinerary) =>
+      record(`
+        <strong>${itinerary.title}</strong>
+        <p>${itinerary.destination} · ${itinerary.web_status}</p>
+        <a href="/api/itineraries/${itinerary.id}/export" target="_blank" rel="noreferrer">Export designed itinerary</a>
+      `)
+    )
+    .join("");
+
+  conciergeList.innerHTML = data.concierge_requests
+    .map((item) =>
+      record(`
+        <strong>${item.urgency}</strong>
+        <p>${item.request}</p>
+        <code>${item.brief_id}</code>
+      `)
+    )
     .join("");
 }
 
@@ -102,14 +179,55 @@ if (briefForm) {
         throw new Error(result.error || "Could not create brief");
       }
 
-      formStatus.textContent = `Brief ${result.brief.id} created. Estimated planning fee: ${money(result.brief.estimated_fee)}.`;
+      formStatus.textContent = `Brief ${result.brief.id} created. Generated itinerary ready. Estimated planning fee: ${money(result.brief.estimated_fee)}.`;
       formStatus.dataset.state = "success";
+      renderGeneratedPlan(result);
       briefForm.reset();
     } catch (error) {
       formStatus.textContent = error.message;
       formStatus.dataset.state = "error";
     } finally {
       submitButton.disabled = false;
+    }
+  });
+}
+
+if (loadDashboard) {
+  loadDashboard.addEventListener("click", async () => {
+    loadDashboard.disabled = true;
+    loadDashboard.textContent = "Loading...";
+    try {
+      const data = await fetchJson("/api/admin/dashboard", {
+        headers: { Authorization: "Bearer dev-admin-token" }
+      });
+      renderDashboard(data);
+    } catch (error) {
+      metricGrid.innerHTML = `<article class="record error">${error.message}</article>`;
+    } finally {
+      loadDashboard.disabled = false;
+      loadDashboard.textContent = "Refresh planner dashboard";
+    }
+  });
+}
+
+if (conciergeForm) {
+  conciergeForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(conciergeForm);
+    try {
+      await fetchJson("/api/concierge/requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          brief_id: formData.get("brief_id"),
+          urgency: formData.get("urgency"),
+          request: formData.get("request")
+        })
+      });
+      conciergeForm.reset();
+      loadDashboard?.click();
+    } catch (error) {
+      conciergeList.innerHTML = record(`<strong>${error.message}</strong>`);
     }
   });
 }

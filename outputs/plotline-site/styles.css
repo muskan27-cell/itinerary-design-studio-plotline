@@ -186,6 +186,11 @@ p {
   color: var(--paper);
 }
 
+.button.secondary.dark {
+  border-color: rgba(23, 21, 19, 0.24);
+  color: var(--ink);
+}
+
 .intro-band {
   background: var(--moss);
   color: var(--paper);
@@ -492,6 +497,149 @@ input[type="range"] {
   padding: 12px;
 }
 
+.generated-plan {
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.generated-plan h3 {
+  margin-bottom: 8px;
+}
+
+.generated-plan ol {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0;
+  padding-left: 20px;
+}
+
+.generated-plan li p {
+  margin: 4px 0 0;
+}
+
+.plan-actions,
+.planner-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.planner-section {
+  background: #f0eadf;
+  padding: clamp(58px, 8vw, 116px) clamp(20px, 5vw, 72px);
+}
+
+.planner-actions {
+  margin-bottom: 24px;
+}
+
+.planner-actions span {
+  color: rgba(23, 21, 19, 0.62);
+  font-weight: 800;
+}
+
+.metric-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 18px;
+}
+
+.metric-grid article,
+.dashboard-panel,
+.record {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.metric-grid article {
+  padding: 20px;
+}
+
+.metric-grid span {
+  color: var(--aubergine);
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+}
+
+.metric-grid p,
+.record p {
+  margin: 6px 0 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.dashboard-panel {
+  min-height: 300px;
+  padding: 22px;
+}
+
+.record-list {
+  display: grid;
+  gap: 10px;
+}
+
+.record {
+  padding: 14px;
+}
+
+.record code {
+  color: var(--aubergine);
+  display: block;
+  font-size: 0.78rem;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
+
+.record a {
+  color: var(--aubergine);
+  font-weight: 900;
+}
+
+.mini-form {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.checkout-page {
+  background: var(--aubergine);
+}
+
+.checkout-shell {
+  display: grid;
+  gap: 28px;
+  margin: 0 auto;
+  max-width: 760px;
+  min-height: 100vh;
+  padding: 10vh 22px;
+}
+
+.checkout-card {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: clamp(28px, 6vw, 56px);
+}
+
+.checkout-card h1 {
+  color: var(--ink);
+  font-size: clamp(2.6rem, 7vw, 5rem);
+}
+
+.checkout-brief {
+  color: var(--aubergine);
+  font-weight: 900;
+}
+
 footer {
   background: var(--cream);
   gap: 18px;
@@ -519,13 +667,15 @@ footer span:first-child {
 
   .intro-band,
   .studio-console,
-  .inquiry {
+  .inquiry,
+  .dashboard-grid {
     grid-template-columns: 1fr;
   }
 
   .proof-grid,
   .service-grid,
-  .timeline {
+  .timeline,
+  .metric-grid {
     grid-template-columns: 1fr;
   }
 

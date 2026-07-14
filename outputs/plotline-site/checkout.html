@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plotline Checkout</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="checkout-page">
+    <main class="checkout-shell">
+      <a class="brand" href="/">
+        <span class="brand-mark">P</span>
+        <span>Plotline</span>
+      </a>
+      <section class="checkout-card">
+        <p class="eyebrow">Mock Stripe checkout</p>
+        <h1>Reserve your planning slot.</h1>
+        <p>
+          This local prototype creates a checkout session record but does not charge a real card.
+          In production this page would redirect to Stripe Checkout.
+        </p>
+        <p class="checkout-brief" id="checkout-brief"></p>
+        <a class="button primary" href="/">Return to studio</a>
+      </section>
+    </main>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      document.querySelector("#checkout-brief").textContent = `Brief: ${params.get("brief_id") || "demo"}`;
+    </script>
+  </body>
+</html>

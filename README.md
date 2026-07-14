@@ -9,6 +9,10 @@ The project includes a polished brand website, an interactive itinerary preview,
 - Editorial landing page for the Plotline brand
 - Interactive sample itinerary selector
 - Client brief form connected to a backend API
+- Automatic first-pass itinerary generation from a submitted brief
+- Printable designed itinerary export that can be saved as PDF
+- Mock Stripe-style checkout flow for planning fees
+- Planner dashboard with briefs, generated itineraries, concierge requests, and pipeline metrics
 - SQLite-backed persistence for trip briefs
 - Admin-protected endpoints for planner workflows
 - Concierge request endpoint for live support use cases
@@ -42,6 +46,7 @@ No React, Node, Express, FastAPI, Django, or external packages are required.
 └── outputs/
     └── plotline-site/
         ├── index.html
+        ├── checkout.html
         ├── styles.css
         ├── script.js
         ├── plotline_api.py
@@ -84,11 +89,37 @@ curl -X POST http://127.0.0.1:8088/api/briefs \
   }'
 ```
 
+Create a brief and receive a generated itinerary plus mock checkout:
+
+```bash
+curl -X POST http://127.0.0.1:8088/api/briefs \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "mood": "market-led Seoul",
+    "travel_window": "November, 5 nights",
+    "tier": "full_plot",
+    "traveler_email": "traveler@example.com"
+  }'
+```
+
 List briefs as admin:
 
 ```bash
 curl http://127.0.0.1:8088/api/briefs \
   -H 'Authorization: Bearer dev-admin-token'
+```
+
+Load planner dashboard:
+
+```bash
+curl http://127.0.0.1:8088/api/admin/dashboard \
+  -H 'Authorization: Bearer dev-admin-token'
+```
+
+Open a generated itinerary export:
+
+```text
+http://127.0.0.1:8088/api/itineraries/YOUR_ITINERARY_ID/export
 ```
 
 ## Backend Notes
@@ -114,7 +145,7 @@ This is a local, dependency-light implementation designed to run reliably on the
 - Move SQLite to Postgres
 - Replace the standard-library server with FastAPI or Django
 - Add role-based auth for planners and admins
-- Add Stripe for planning fees and subscriptions
+- Replace mock checkout with Stripe for planning fees and subscriptions
 - Add object storage for designed itinerary PDFs
 - Add a worker queue for PDF generation and email delivery
 - Add affiliate booking attribution tables

@@ -19,6 +19,7 @@
       <nav class="nav-links" aria-label="Site sections">
         <a href="#services">Services</a>
         <a href="#sample">Sample</a>
+        <a href="#planner">Planner</a>
         <a href="#studio">Studio</a>
         <a href="#inquire">Inquire</a>
       </nav>
@@ -205,7 +206,40 @@
           </label>
           <button class="button primary" type="submit">Draft my plot</button>
           <p class="form-status" id="form-status" role="status"></p>
+          <article class="generated-plan" id="generated-plan" hidden></article>
         </form>
+      </section>
+
+      <section class="planner-section" id="planner">
+        <div class="section-heading">
+          <p class="eyebrow">Planner workspace</p>
+          <h2>Operate the studio from one dashboard.</h2>
+        </div>
+        <div class="planner-actions">
+          <button class="button primary" id="load-dashboard" type="button">Load planner dashboard</button>
+          <span>Uses local admin token: dev-admin-token</span>
+        </div>
+        <div class="metric-grid" id="metric-grid"></div>
+        <div class="dashboard-grid">
+          <section class="dashboard-panel">
+            <h3>Trip briefs</h3>
+            <div id="brief-list" class="record-list"></div>
+          </section>
+          <section class="dashboard-panel">
+            <h3>Generated itineraries</h3>
+            <div id="itinerary-list" class="record-list"></div>
+          </section>
+          <section class="dashboard-panel">
+            <h3>Concierge requests</h3>
+            <form class="mini-form" id="concierge-form">
+              <input name="brief_id" placeholder="Brief ID" required />
+              <input name="urgency" placeholder="Urgency, e.g. same-day" required />
+              <input name="request" placeholder="Request" required />
+              <button class="button secondary dark" type="submit">Add request</button>
+            </form>
+            <div id="concierge-list" class="record-list"></div>
+          </section>
+        </div>
       </section>
     </main>
 
