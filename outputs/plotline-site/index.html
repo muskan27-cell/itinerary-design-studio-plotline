@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plotline | Bespoke Itinerary Design Studio</title>
+    <meta
+      name="description"
+      content="Plotline creates bespoke narrative itineraries, designed PDFs, and interactive travel experiences for travelers who hate generic packages."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary">
+      <a class="brand" href="#top" aria-label="Plotline home">
+        <span class="brand-mark">P</span>
+        <span>Plotline</span>
+      </a>
+      <nav class="nav-links" aria-label="Site sections">
+        <a href="#services">Services</a>
+        <a href="#sample">Sample</a>
+        <a href="#studio">Studio</a>
+        <a href="#inquire">Inquire</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="Plotline introduction">
+        <img
+          class="hero-image"
+          src="./assets/plotline-hero.png"
+          alt="A refined travel planning studio desk with maps, photographs, notebooks, and brass lighting."
+        />
+        <div class="hero-scrim"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Bespoke itinerary design studio</p>
+          <h1>Plotline</h1>
+          <p class="hero-copy">
+            A creative agency for vacations: narrative itineraries, hidden rooms, restaurant
+            choreography, and live concierge support for travelers who refuse generic packages.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#inquire">Start a brief</a>
+            <a class="button secondary" href="#sample">View a sample plot</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-band" aria-label="Positioning">
+        <div class="intro-text">
+          <p>
+            Plotline designs trips around character, pacing, and atmosphere, then delivers them as
+            beautiful PDFs and companion web experiences instead of clunky white-label portals.
+          </p>
+        </div>
+        <div class="proof-grid" aria-label="Business model highlights">
+          <div>
+            <span>$300-$2,000+</span>
+            <p>Per-trip planning fees</p>
+          </div>
+          <div>
+            <span>3-8 weeks</span>
+            <p>Typical custom itinerary window</p>
+          </div>
+          <div>
+            <span>24/7</span>
+            <p>Concierge add-on availability</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="section-heading">
+          <p class="eyebrow">Services</p>
+          <h2>Designed for travelers with taste and no time.</h2>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <span class="service-number">01</span>
+            <h3>Fully Custom Itineraries</h3>
+            <p>
+              Timed logistics, restaurant reservations, gallery holds, hidden spots, and route notes
+              shaped around how the client wants each day to feel.
+            </p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">02</span>
+            <h3>Character-Based Travel</h3>
+            <p>
+              Trips built around a story: the slow food route through Sicily, the architect's
+              weekend in Mexico City, or the collector's Paris.
+            </p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">03</span>
+            <h3>Concierge Continuity</h3>
+            <p>
+              Real-time support for last-minute changes, delayed arrivals, weather pivots, and
+              "we loved this neighborhood, what now?" moments.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="sample-section" id="sample">
+        <div class="section-heading">
+          <p class="eyebrow">Interactive sample</p>
+          <h2>Choose a travel character. Watch the plot change.</h2>
+        </div>
+
+        <div class="studio-console">
+          <aside class="controls" aria-label="Itinerary controls">
+            <label for="persona">Character</label>
+            <select id="persona">
+              <option value="sicily">Slow food route through Sicily</option>
+              <option value="mexico">Architect's weekend in Mexico City</option>
+              <option value="tokyo">Quiet design pilgrimage in Tokyo</option>
+            </select>
+
+            <label for="pace">Pace</label>
+            <input id="pace" type="range" min="1" max="3" value="2" />
+            <div class="range-labels" aria-hidden="true">
+              <span>Slow</span>
+              <span>Layered</span>
+              <span>Full</span>
+            </div>
+
+            <label class="toggle">
+              <input id="concierge" type="checkbox" checked />
+              <span>Concierge add-on</span>
+            </label>
+          </aside>
+
+          <article class="itinerary-panel" aria-live="polite">
+            <div class="itinerary-head">
+              <div>
+                <p class="eyebrow">Designed PDF + web companion</p>
+                <h3 id="itinerary-title">Slow food route through Sicily</h3>
+              </div>
+              <span id="fee">$1,450</span>
+            </div>
+            <ol id="itinerary-days" class="itinerary-days"></ol>
+            <div class="deliverables">
+              <span>Reservation choreography</span>
+              <span>Hidden map layer</span>
+              <span id="support-chip">Live support</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section split-section" id="studio">
+        <div class="section-heading">
+          <p class="eyebrow">Office path</p>
+          <h2>Remote first, then a destination library you can walk into.</h2>
+        </div>
+        <div class="timeline">
+          <article>
+            <span>Phase 1</span>
+            <h3>Remote atelier</h3>
+            <p>Founder-led briefs, destination researchers, PDF design templates, and concierge partner bench.</p>
+          </article>
+          <article>
+            <span>Phase 2</span>
+            <h3>Private planning room</h3>
+            <p>Client consultations, tasting notes, map walls, and sample itineraries for high-touch sales.</p>
+          </article>
+          <article>
+            <span>Phase 3</span>
+            <h3>Destination library</h3>
+            <p>Books, neighborhood files, local-maker directories, and recurring traveler subscription salons.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="inquiry" id="inquire">
+        <div>
+          <p class="eyebrow">Client brief</p>
+          <h2>Tell us who you want to be somewhere else.</h2>
+          <p>
+            Plotline is built for honeymoons, family sabbaticals, solo resets, collector weekends,
+            and frequent travelers who want the trip to feel authored.
+          </p>
+        </div>
+        <form class="brief-form" id="brief-form">
+          <label>
+            Trip mood
+            <input name="mood" type="text" placeholder="e.g. literary Lisbon, alpine recovery, market-led Seoul" required />
+          </label>
+          <label>
+            When and how long
+            <input name="travel_window" type="text" placeholder="e.g. late October, 6 nights" required />
+          </label>
+          <label>
+            Planning tier
+            <select name="tier">
+              <option value="essentials">Essentials itinerary - from $300</option>
+              <option value="full_plot">Full plot - from $900</option>
+              <option value="concierge">Concierge plot - from $2,000</option>
+            </select>
+          </label>
+          <label>
+            Email
+            <input name="traveler_email" type="email" placeholder="you@example.com" />
+          </label>
+          <button class="butto
